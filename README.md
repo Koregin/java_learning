@@ -1,5 +1,5 @@
 # java_learning
-Learning Java by books. Examples and excerices
+Learning Java by books. Examples and exercises
 
 Используемые книги
 1. Head First Java - Кэти Сьерра и Берт Бейтс
