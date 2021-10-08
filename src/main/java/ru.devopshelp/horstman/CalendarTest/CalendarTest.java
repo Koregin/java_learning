@@ -1,4 +1,4 @@
-package ru.devopshelp.horstman.CalendarTest;
+package horstman.CalendarTest;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
