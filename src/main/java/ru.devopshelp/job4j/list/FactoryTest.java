@@ -1,4 +1,4 @@
-package ru.devopshelp.job4j.list;
+package job4j.list;
 
 import org.junit.Test;
 
@@ -13,7 +13,7 @@ public class FactoryTest {
     public void main() {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         System.setOut(new PrintStream(out));
-        Factory.main(null);
+        ru.devopshelp.job4j.list.Factory.main(null);
         String ln = System.lineSeparator();
         String expected = "first" + ln + "second"
                 + ln + "third"
