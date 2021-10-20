@@ -1,4 +1,4 @@
-package ru.devopshelp.headfirst;
+package headfirst;
 
 import java.io.BufferedReader;
 import java.io.File;
