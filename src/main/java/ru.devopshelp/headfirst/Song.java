@@ -1,4 +1,4 @@
-package headfirst;
+package ru.devopshelp.headfirst;
 
 public class Song implements Comparable<Song> {
     String title;

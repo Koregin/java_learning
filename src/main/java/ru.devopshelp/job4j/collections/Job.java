@@ -1,4 +1,4 @@
-package job4j.collections;
+package ru.devopshelp.job4j.collections;
 
 public class Job implements Comparable<Job> {
     private String name;
