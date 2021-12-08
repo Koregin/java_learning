@@ -1,0 +1,4 @@
+If you are going to pass parameters to your program,
+add VM options (for example, to allow remote debugging),
+or otherwise customize the startup of your program,
+use a run/debug configuration.
