@@ -11,7 +11,7 @@ public class NonUniqueStringTest {
     @Test
     public void checkData() {
         String[] data = {"a", "b", "a", "c", "b"};
-        Map<String, Boolean> rsl = NonUniqueString.checkData(data);
+        Map<String, Boolean> rsl = ru.devopshelp.job4j.map.NonUniqueString.checkData(data);
         Map<String, Boolean> expected = Map.of("a", true, "b", true, "c", false);
         assertThat(rsl, is(expected));
     }

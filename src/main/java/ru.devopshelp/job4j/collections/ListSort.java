@@ -1,5 +1,6 @@
 package job4j.collections;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -25,5 +26,10 @@ public class ListSort {
         System.out.println(list2);
         Collections.sort(list2, Collections.reverseOrder());
         System.out.println(list2);
+
+        ArrayList<Integer> list1 = new ArrayList<>(Arrays.asList( 1, 4, 5, 7));
+        for (Integer num : list1) {
+            System.out.println(num);
+        }
     }
 }

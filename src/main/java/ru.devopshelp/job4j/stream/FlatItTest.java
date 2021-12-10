@@ -7,7 +7,6 @@ import static org.junit.Assert.*;
 import static org.hamcrest.core.Is.is;
 
 public class FlatItTest {
-
     @Test
     public void whenIt() {
         Iterator<Iterator<Integer>> it = List.of(
