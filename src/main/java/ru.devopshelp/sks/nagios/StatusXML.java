@@ -9,13 +9,11 @@ import java.nio.file.attribute.FileTime;
 import java.util.*;
 
 public class StatusXML {
-    //public static List<Host> hosts = new ArrayList<>();
     public static Map<String, Map<String, String>> hosts = new HashMap<>();
 
     public static void main(String[] args) throws IOException {
         FileTime newTime = null;
         FileTime currentTime = null;
-        //Set<String> hostnames = new HashSet<>();
         Path statusFile = Paths.get("/home/mnemonic/programming/java/java_learning/src/data/status.dat");
         if (Files.exists(statusFile)) {
             BasicFileAttributes attr =
@@ -74,9 +72,63 @@ public class StatusXML {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        int hostWithproblems = 0;
+
+        StringBuilder sb = new StringBuilder();
+        sb.append(headerFooter("header"));
+        int rowcount = 0;
         for (String key : hosts.keySet()) {
-            System.out.println("Host: " + key + ", " + hosts.get(key).toString());
+            String problem = null;
+            Map<String, String> services = hosts.get(key);
+            for (String param : services.keySet()) {
+                if (!"0".equals(services.get(param))){
+                    //System.out.println("Host: " + key + ", " + param + ": " + services.get(param));
+                    hostWithproblems++;
+                    problem = param;
+                }
+            }
+            if (rowcount % 5 == 0) {
+                sb.append("<tr>\n");
+            }
+            if (problem != null) {
+                if ("PING".equals(problem)) {
+                    sb.append("<td class=\"statusPING\">").append(key).append(" <b>PING</b>").append("</td>\n");
+                } else {
+                    sb.append("<td class=\"statusWARNING\">").append(key).append("  <b>").append(problem).append("</b></td>\n");
+                }
+            } else {
+                sb.append("<td class=\"statusOK\">").append(key).append("</td>\n");
+            }
+            if (rowcount % 5 == 4) {
+                sb.append("</tr>\n");
+            }
+            rowcount++;
         }
+        sb.append(headerFooter("footer"));
+        System.out.println(sb.toString());
         System.out.println("Всего хостов: " + hosts.size());
+        System.out.println("Хостов с проблемами: " + hostWithproblems);
+    }
+
+    public static String headerFooter(String html) {
+        String header = "<HTML>\n" +
+                " <HEAD>\n" +
+                "  <META http-equiv=\"Refresh\" content=\"120\">\n" +
+                "  <TITLE>Current Network Status</TITLE>\n" +
+                "  <STYLE>\n" +
+                "TABLE { width: 100%; }\n" +
+                "A { color: black; }\n" +
+                ".statusHOSTPENDING { font: 20pt arial,serif; background-color: #ACACAC; }\n" +
+                ".statusOK { font: 20pt arial,serif; background-color: #33FF00; }\n" +
+                ".statusPING { font: 20pt arial,serif; background-color: #F83838; }\n" +
+                ".statusWARNING { font: 20pt arial,serif; background-color: #FFBB33; }\n" +
+                "  </STYLE>\n" +
+                " </HEAD>\n" +
+                " <BODY>\n" +
+                "  <TABLE width=\"100%\">\n";
+        String footer = "</TABLE>\n" +
+                " </BODY>\n" +
+                "</HTML>";
+        return "header".equals(html) ? header : footer;
     }
 }
