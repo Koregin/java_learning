@@ -11,13 +11,13 @@ import java.util.stream.Stream;
 
 public class BookParser {
 
-    private static final int WORD_MIN_REPEAT = 10;
+    private static final int WORD_MIN_REPEAT = 15;
     private static final int MIN_LENGTH = 4;
+    private static Path fileForRead = Paths.get("e:\\temp\\Book 1 - The Philosopher's Stone.txt");
+    private static Path fileForWrite = Paths.get("e:\\temp\\harrypotter1words.txt");
 
     public static void main(String[] args) throws IOException {
-        Path file = Paths.get("e:\\temp\\harrypotter1.txt");
-        Path fileForWrite = Paths.get("e:\\temp\\harrypotter1words.txt");
-        Map<String, Integer> uniqueWords = createMap(readBookFile(file));
+        Map<String, Integer> uniqueWords = createMap(readBookFile(fileForRead));
         saveSortedMap(uniqueWords, fileForWrite);
     }
 
@@ -68,6 +68,7 @@ public class BookParser {
         Iterator<Map.Entry<String, Integer>> i = set.iterator();
         try(FileWriter writer = new FileWriter(file.toString())) {
             String ln = System.lineSeparator();
+            writer.write("Название книги: " + fileForRead.getFileName() + ln);
             writer.write("Количество уникальных слов: " + sortedMap.size() + ln);
             writer.write("Минимальная длина слова: " + MIN_LENGTH + ln);
             writer.write("Минимальное число повторений слова в тексте: " + BookParser.WORD_MIN_REPEAT + ln);
