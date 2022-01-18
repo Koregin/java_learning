@@ -11,7 +11,8 @@ import java.util.stream.Stream;
 
 public class BookParser {
 
-    private static final int WORD_MIN_REPEAT = 15;
+    private static final int WORD_MIN_REPEAT = 5;
+    private static final int WORD_MAX_REPEAT = 14;
     private static final int MIN_LENGTH = 4;
     private static Path fileForRead = Paths.get("e:\\temp\\Book 1 - The Philosopher's Stone.txt");
     private static Path fileForWrite = Paths.get("e:\\temp\\harrypotter1words.txt");
@@ -69,17 +70,22 @@ public class BookParser {
         try(FileWriter writer = new FileWriter(file.toString())) {
             String ln = System.lineSeparator();
             writer.write("Название книги: " + fileForRead.getFileName() + ln);
-            writer.write("Количество уникальных слов: " + sortedMap.size() + ln);
+            writer.write("Количество уникальных слов в тексте: " + sortedMap.size() + ln);
             writer.write("Минимальная длина слова: " + MIN_LENGTH + ln);
             writer.write("Минимальное число повторений слова в тексте: " + BookParser.WORD_MIN_REPEAT + ln);
+            writer.write("Максимальное число повторений слова в тексте: " + BookParser.WORD_MAX_REPEAT + ln);
             writer.write(System.lineSeparator());
+            int writeWordsCounter = 0;
             while (i.hasNext()) {
                 Map.Entry mp = (Map.Entry) i.next();
-                if ((Integer)mp.getValue() >= (Integer) BookParser.WORD_MIN_REPEAT) {
+                if ((Integer)mp.getValue() >= (Integer) BookParser.WORD_MIN_REPEAT
+                        && (Integer)mp.getValue() <= (Integer) BookParser.WORD_MAX_REPEAT) {
                     writer.write(mp.getKey() + ": " + mp.getValue());
                     writer.write(System.lineSeparator());
+                    writeWordsCounter++;
                 }
             }
+            writer.write("Выведено слов: " + writeWordsCounter + ln);
         } catch (IOException e) {
             e.printStackTrace();
         }
